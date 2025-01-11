@@ -58,10 +58,10 @@ def luminaApp() :
       f.write(text)
       f.close()
 def background() :
-  from turtle import *
+  import turtle
   global t
-  t = Turtle()
-  t.shape(image('background.png'))
+  t = turtle.Turtle()
+  t.shape(turtle.image('background.png'))
   def move() :
     while True :
       t.goto(200, 0)
