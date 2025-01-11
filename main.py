@@ -59,9 +59,41 @@ def luminaApp() :
       f.close()
 def background() :
   from turtle import *
+  global t
   t = Turtle()
   t.shape(image('background.png'))
+  def move() :
+    while True :
+      t.goto(200, 0)
+      time.sleep(0.5)
+      t.goto(-200, 0)
+    thr = threading.Thread(target=move)
+    thr.start()
 def desktop() :
   if opened == False :
     print('Welcome to BoltOS.')
     print('The lightning fast web operationg system.')
+    time.sleep(1)
+    while True :
+      a = login()
+      if a :
+        break
+      else :
+        print('Incorrect username or password')
+    displayApps()
+    app = input('action : ')
+    if app == '/terminal' :
+      terminal() 
+    elif app == '/search' :
+      research()
+    elif app == '/py' :
+      openIde()
+    elif app == '/lumina' :
+      luminaApp()
+    else :
+      print('Unknown app')
+background()
+while keepon :
+  desktop()
+  opened = True
+      
