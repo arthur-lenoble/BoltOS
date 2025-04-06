@@ -2,16 +2,20 @@ import os
 import time 
 import threading 
 import bubble 
+
 keepon = True 
 opened = False 
 espaces =' '*25 
+
 def displayApps() :
   print('Terminal = /terminal\nBubble = /search\nOpenIDE = /py\nLumina = /lumina')
+
 def clearScreen():
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
+
 def login() : 
   clearScreen()
   username = input('🚹')
@@ -25,6 +29,7 @@ def login() :
     return True
   else :
     return False 
+
 def terminal() :
   command = input('usr///live_session_user:/bash $ ')
   if command == 'shutdown' :
@@ -35,8 +40,10 @@ def terminal() :
       clearScreen()
   elif command == 'logout' :
     opened = False 
+
 def research() :
   bubble.Bubble() 
+
 def openIde() :
   while True :
     command = input('>>>')
@@ -47,6 +54,7 @@ def openIde() :
         exec(command)
       except :
         print('Traceback (most recent call last) :\nfile = \'usrCommand\' : Unknown Error') 
+
 def luminaApp() :
   while True :
     text = input(espaces + 'Lumina Editor\n')
@@ -57,18 +65,23 @@ def luminaApp() :
       f = open(namefile, 'w+')
       f.write(text)
       f.close()
-def background() :
-  import turtle
-  global t
-  t = turtle.Turtle()
-  t.shape(turtle.image('background.png'))
-  def move() :
-    while True :
-      t.goto(200, 0)
-      time.sleep(0.5)
-      t.goto(-200, 0)
+
+def background():
+    if not os.environ.get('DISPLAY'):
+        print("Graphical environment not available. Skipping background animation.")
+        return
+    import turtle
+    global t
+    t = turtle.Turtle()
+    t.shape(turtle.image('background.png'))
+    def move():
+        while True:
+            t.goto(200, 0)
+            time.sleep(0.5)
+            t.goto(-200, 0)
     thr = threading.Thread(target=move)
     thr.start()
+
 def desktop() :
   if opened == False :
     print('Welcome to BoltOS.')
@@ -92,8 +105,10 @@ def desktop() :
       luminaApp()
     else :
       print('Unknown app')
+
 background()
+
 while keepon :
   desktop()
   opened = True
-      
+
